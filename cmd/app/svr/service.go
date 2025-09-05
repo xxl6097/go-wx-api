@@ -1,4 +1,4 @@
-package service
+package svr
 
 import (
 	"fmt"
@@ -7,9 +7,9 @@ import (
 	"github.com/xxl6097/go-service/pkg/gs/igs"
 	"github.com/xxl6097/go-service/pkg/ukey"
 	"github.com/xxl6097/go-service/pkg/utils"
-	"go-wx-api/internal"
-	"go-wx-api/internal/config"
-	"go-wx-api/pkg"
+	"github.com/xxl6097/go-wx-api/internal"
+	"github.com/xxl6097/go-wx-api/internal/config"
+	"github.com/xxl6097/go-wx-api/pkg"
 	"os"
 )
 
@@ -50,7 +50,7 @@ func (this *Service) OnConfig() *service.Config {
 	cfg := service.Config{
 		Name: pkg.AppName,
 		//UserName:    "root",
-		DisplayName: fmt.Sprintf("AAATest_%s", pkg.AppVersion),
+		DisplayName: fmt.Sprintf("%s_%s", pkg.AppName, pkg.AppVersion),
 		Description: "A Golang AAATest Service..",
 	}
 	return &cfg
@@ -81,10 +81,10 @@ func (this *Service) GetAny(s2 string) []byte {
 }
 
 func (this *Service) menu() []byte {
-	port := utils.InputIntDefault(fmt.Sprintf("输入服务端口(%d)：", 7000), 7000)
+	port := utils.InputIntDefault(fmt.Sprintf("输入服务端口(%d)：", 80), 80)
 	username := utils.InputStringEmpty(fmt.Sprintf("输入管理用户名(%s)：", "admin"), "admin")
 	password := utils.InputStringEmpty(fmt.Sprintf("输入管理密码(%s)：", "admin"), "admin")
-	cfg := &config.Config{ServerPort: port, Username: username, Password: password}
+	cfg := &config.Config{ServerPort: port, Username: username, Password: password, AppID: "wxbe2c2961b236427f", AppSecret: "667fc391b1ca8f4c58d1b5f224356ad5"}
 	bb, e := ukey.StructToGob(cfg)
 	if e != nil {
 		return nil

@@ -40,6 +40,7 @@ type Ntfy struct {
 	isClosed bool
 	ctx      context.Context
 	cancel   context.CancelFunc
+	ntfyMes  string
 	fnArray  []func(string)
 	info     *NtfyInfo
 }
@@ -105,6 +106,7 @@ func (this *Ntfy) Subscribe(address, topic string, username, password string) er
 	for scanner.Scan() {
 		text := scanner.Text()
 		//glog.Info(text)
+		this.ntfyMes = text
 		if this.fnArray != nil && len(this.fnArray) > 0 {
 			for _, fn := range this.fnArray {
 				fn(text)
@@ -114,6 +116,25 @@ func (this *Ntfy) Subscribe(address, topic string, username, password string) er
 	return scanner.Err()
 }
 
+func (this *Ntfy) getMessage() string {
+	if this.ntfyMes != "" {
+		return this.ntfyMes
+	}
+	select {
+	case <-time.After(time.Second * 10):
+		return this.ntfyMes
+	}
+}
+
+func (this *Ntfy) GetMessage() string {
+	var res NtfyEventData
+	err := json.Unmarshal([]byte(this.getMessage()), &res)
+	if err != nil {
+		glog.Errorf("ntfyMessage Error:%v", err)
+		return ""
+	}
+	return res.Message
+}
 func (this *Ntfy) subscribe(info *NtfyInfo) {
 	this.ctx, this.cancel = context.WithCancel(context.Background())
 	for {

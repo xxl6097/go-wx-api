@@ -3,10 +3,11 @@ package main
 import (
 	"github.com/xxl6097/glog/glog"
 	"github.com/xxl6097/go-service/pkg/gs"
-	"go-wx-api/cmd/app/service"
-	"go-wx-api/internal"
-	"go-wx-api/internal/config"
-	"go-wx-api/internal/u"
+	_ "github.com/xxl6097/go-wx-api/assets/buffer"
+	"github.com/xxl6097/go-wx-api/cmd/app/svr"
+	"github.com/xxl6097/go-wx-api/internal"
+	"github.com/xxl6097/go-wx-api/internal/config"
+	"github.com/xxl6097/go-wx-api/internal/u"
 )
 
 func init() {
@@ -23,7 +24,7 @@ func init() {
 }
 
 func main() {
-	s := service.Service{}
+	s := svr.Service{}
 	err := gs.Run(&s)
 	glog.Debug("程序结束", err)
 }

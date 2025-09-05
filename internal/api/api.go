@@ -6,10 +6,10 @@ import (
 	"github.com/gorilla/mux"
 	"github.com/xxl6097/glog/glog"
 	"github.com/xxl6097/go-http/pkg/httpserver"
-	"go-wx-api/internal/config"
-	"go-wx-api/internal/config/wx"
-	"go-wx-api/internal/ntfy"
-	"go-wx-api/internal/u"
+	"github.com/xxl6097/go-wx-api/internal/config"
+	"github.com/xxl6097/go-wx-api/internal/config/wx"
+	"github.com/xxl6097/go-wx-api/internal/ntfy"
+	"github.com/xxl6097/go-wx-api/internal/u"
 	"io"
 	"log"
 	"net/http"
@@ -164,12 +164,9 @@ func (this *Api) eventMessage(w http.ResponseWriter, event *wx.EventMessage) {
 	switch event.EventKey {
 	case "16:00:6f:83:35:e1":
 		replyMsg := wx.CreateTextResponse(
-			event.FromUserName, // 接收方：发送消息的用户OpenID
-			event.ToUserName,   // 发送方：公众号ID
-			"您好，这是自动回复：\r\n"+
-				"姓名：夏小力\r\n"+
-				"性别：男\r\n"+
-				"工作：码农", // 回复内容
+			event.FromUserName,              // 接收方：发送消息的用户OpenID
+			event.ToUserName,                // 发送方：公众号ID
+			ntfy.GetInstance().GetMessage(), // 回复内容
 		)
 		// 2. 将结构体序列化为XML字节切片
 		xmlData, err := xml.Marshal(replyMsg)

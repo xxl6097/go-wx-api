@@ -1,4 +1,4 @@
-module go-wx-api
+module github.com/xxl6097/go-wx-api
 
 go 1.23.2
 
