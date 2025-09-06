@@ -6,8 +6,8 @@ require (
 	github.com/gorilla/mux v1.8.1
 	github.com/kardianos/service v1.2.4
 	github.com/xxl6097/glog v0.1.57
-	github.com/xxl6097/go-http v0.0.42
-	github.com/xxl6097/go-service v0.6.88
+	github.com/xxl6097/go-http v0.0.57
+	github.com/xxl6097/go-service v0.6.89
 )
 
 require (

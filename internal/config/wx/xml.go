@@ -27,6 +27,20 @@ type EventMessage struct {
 	EventKey     string   `xml:"EventKey"` // 事件KEY值
 }
 
+type LinkMessage struct {
+	XMLName      xml.Name `xml:"xml"`
+	ToUserName   string   `xml:"ToUserName"`
+	FromUserName string   `xml:"FromUserName"`
+	CreateTime   int64    `xml:"CreateTime"`
+	MsgType      string   `xml:"MsgType"` // 此处为 "event"
+	Title        string   `xml:"Title"`
+	Description  string   `xml:"Description"`
+	Url          string   `xml:"Url"`
+	MsgId        int64    `xml:"MsgId"`
+	MsgDataId    string   `xml:"MsgDataId"`
+	Idx          string   `xml:"Idx"`
+}
+
 // TextResponse 定义回复给微信服务器的文本消息结构
 type TextResponse struct {
 	XMLName      xml.Name `xml:"xml"`
@@ -35,6 +49,20 @@ type TextResponse struct {
 	CreateTime   int64    `xml:"CreateTime"`   // 消息创建时间（时间戳）
 	MsgType      CDATA    `xml:"MsgType"`      // 消息类型（此处为 "text"）
 	Content      CDATA    `xml:"Content"`      // 回复的文本内容
+}
+
+type LinkResponse struct {
+	XMLName      xml.Name `xml:"xml"`
+	ToUserName   CDATA    `xml:"ToUserName"`
+	FromUserName CDATA    `xml:"FromUserName"`
+	CreateTime   int64    `xml:"CreateTime"`
+	MsgType      CDATA    `xml:"MsgType"` // 此处为 "event"
+	Title        CDATA    `xml:"Title"`
+	Description  CDATA    `xml:"Description"`
+	Url          CDATA    `xml:"Url"`
+	MsgId        int64    `xml:"MsgId"`
+	MsgDataId    int64    `xml:"MsgDataId"`
+	Idx          int64    `xml:"Idx"`
 }
 
 // CDATA 处理XML CDATA标签（如果需要生成回复，包含CDATA时有用）
